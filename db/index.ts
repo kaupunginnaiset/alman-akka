@@ -1,10 +1,11 @@
 interface BaseEvent {
-  externalId: string;
+  externalId?: string;
   category: [string];
   title: string;
-  city: string;
-  event: string;
+  event?: string;
   location: string;
+  address: string;
+  area?: string;
   description: string;
   wholeDay: boolean;
   url: string;
@@ -13,12 +14,12 @@ interface BaseEvent {
 
 interface EventFromJSON extends BaseEvent {
   startTime: string;
-  endTime: string;
+  endTime?: string;
 }
 
 interface Event extends BaseEvent {
   startTime: Date;
-  endTime: Date;
+  endTime?: Date;
 }
 
 const printUsage = () => {
@@ -44,8 +45,6 @@ fb.initializeApp({
 });
 
 const db = fb.firestore();
-
-
 
 (async function () {
   const eventsDb = db.collection("events");
