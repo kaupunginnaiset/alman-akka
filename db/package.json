@@ -1,0 +1,19 @@
+{
+  "name": "db-helper",
+  "version": "1.0.0",
+  "description": "Helper for manipulating data in Firestore",
+  "main": "index.js",
+  "devDependencies": {
+    "ts-node": "^10.7.0",
+    "typescript": "^4.6.2"
+  },
+  "scripts": {
+    "add": "ts-node index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "firebase-admin": "^10.0.2"
+  }
+}
