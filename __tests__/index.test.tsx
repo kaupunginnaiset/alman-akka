@@ -1,5 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import Home from "../pages/index";
+import { axe } from "jest-axe";
 
 describe("Home", () => {
   it("renders a heading", () => {
@@ -9,5 +10,12 @@ describe("Home", () => {
     });
 
     expect(heading).toBeInTheDocument();
+  });
+
+  it("does not have accessibility violations", async () => {
+    const { container } = render(<Home />);
+    const results = await axe(container);
+
+    expect(results).toHaveNoViolations();
   });
 });
