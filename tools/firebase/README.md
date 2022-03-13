@@ -46,11 +46,12 @@ The entries in the database (whether it is added by scripts or via the app itsel
 ## Add script
 
 Script adds events to the database collection called `events` from a json file. Firestore generates each entry an unique identifier.
-Running the script:
+Running the script (in project root):
 
 ```bash
-npm install
-npm run add -- creds.json events.json
+yarn install
+yarn tools:db:add -- creds.json events.json
 ```
 
-First parameter `creds.json` is the necessary admin credential file downloaded from FB console. `events.json` contains a list of the events to be added.
+First parameter `creds.json` is the necessary admin credential file downloaded from FB console. 
+The file path should be relative to the folder `./tools/firebase`. `events.json` contains a list of the events to be added.

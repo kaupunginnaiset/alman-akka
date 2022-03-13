@@ -2,12 +2,14 @@
   "name": "alman-akka",
   "version": "0.1.0",
   "private": true,
+  "license": "Apache-2.0",
   "scripts": {
-    "dev": "next dev",
     "build": "next build",
+    "dev": "next dev",
     "start": "next start",
     "lint": "next lint && stylelint stylelint **/**.css",
-    "test": "jest"
+    "test": "jest",
+    "tools:db:add": "ts-node -O '{\"module\": \"commonjs\"}' ./tools/firebase/add.ts"
   },
   "dependencies": {
     "next": "12.1.0",
@@ -33,6 +35,8 @@
     "stylelint-config-prettier": "^9.0.3",
     "stylelint-config-standard": "^25.0.0",
     "stylelint-prettier": "^2.0.0",
+    "firebase-admin": "^10.0.2",
+    "ts-node": "^10.7.0",
     "typescript": "4.6.2"
   }
 }
