@@ -6,10 +6,11 @@
   "scripts": {
     "build": "next build",
     "dev": "next dev",
-    "start": "next start",
     "lint": "next lint && stylelint stylelint **/**.css",
+    "start": "next start",
     "test": "jest",
-    "tools:db:add": "ts-node -O '{\"module\": \"commonjs\"}' ./tools/firebase/add.ts"
+    "tools:db:add": "ts-node -O '{\"module\": \"commonjs\"}' ./tools/firebase/add.ts",
+    "tools:db:fetch": "ts-node -O '{\"module\": \"commonjs\"}' ./tools/firebase/fetch.ts"
   },
   "dependencies": {
     "next": "12.1.0",
