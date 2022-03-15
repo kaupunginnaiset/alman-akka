@@ -1,0 +1,19 @@
+name: tag-release
+on:
+  schedule:
+    - cron: "0 1 * * 1-5" # run at 1 AM UTC on weekdays
+  workflow_dispatch:
+  repo_dispatch:
+  push:
+
+jobs:
+  fetch-latest:
+    runs-on: ubuntu-latest
+    name: Fetch latest events from db
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16.x'
+      - name: install deps
+        run: yarn install
