@@ -17,3 +17,15 @@ jobs:
           node-version: '16.x'
       - name: install deps
         run: yarn install
+      - name: prep creds
+        run: echo $FB_CREDS > ./tools/creds.json
+        env:
+          FB_CREDS: ${{ secrets.FIREBASE_CREDENTIALS }}
+      - name: update data
+        run: yarn tools:db:fetch ./creds.json
+      # TODO: run tests and push only if they succeed
+      - name: commit changes
+        run: |
+          git add .
+          git commit "Add updates from db."
+          git push origin main
