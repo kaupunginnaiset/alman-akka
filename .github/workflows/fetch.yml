@@ -3,7 +3,7 @@ on:
   schedule:
     - cron: "0 1 * * 1-5" # run at 1 AM UTC on weekdays
   workflow_dispatch:
-  repo_dispatch:
+  repository_dispatch:
   push:
 
 jobs:
