@@ -18,11 +18,13 @@ interface BaseEvent {
 interface EventFromJSON extends BaseEvent {
   startTime: string;
   endTime?: string;
+  lastModified: string;
 }
 
 interface Event extends BaseEvent {
   startTime: Date;
   endTime?: Date;
+  lastModified: Date;
 }
 
 const printUsage = () => {
@@ -52,6 +54,7 @@ const db = fb.firestore();
       ...event,
       startTime: new Date(event.startTime),
       endTime: event.endTime ? new Date(event.endTime) : null,
+      lastModified: new Date(event.lastModified),
     }))
     .forEach(async (event: Event) => {
       const eventDoc = eventsDb.doc();

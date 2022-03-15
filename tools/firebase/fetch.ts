@@ -19,13 +19,18 @@ fb.initializeApp({
 
 const db = fb.firestore();
 const lastFetchFilePath = "./data/last-fetch.txt";
-const lastFetchTime = new Date(fs.readFileSync(lastFetchFilePath, "utf8"));
+const lastFetchTime = new Date(
+  fs.existsSync(lastFetchFilePath)
+    ? fs.readFileSync(lastFetchFilePath, "utf8")
+    : 0
+);
 
 (async function () {
-  // Fetch events from firestore
+  // Fetch changed events from firestore
   const events = await db
     .collection("events")
-    .where("startTime", ">", lastFetchTime)
+    .where("lastModified", ">", lastFetchTime)
+    .orderBy("lastModified", "asc")
     .orderBy("startTime", "asc")
     .get();
 
@@ -55,16 +60,61 @@ const lastFetchTime = new Date(fs.readFileSync(lastFetchFilePath, "utf8"));
   }, {});
 
   // Store events to json
-  Object.keys(eventsToJSON).map((year) => {
-    Object.keys(eventsToJSON[year]).map((month) => {
+  const files = Object.keys(eventsToJSON).map((year) => {
+    fs.mkdirSync(`./data/${year}`, { recursive: true });
+    const months = Object.keys(eventsToJSON[year]).map((month) => {
       const events = eventsToJSON[year][month];
-      const eventsJSON = JSON.stringify(events, null, 2);
-      fs.mkdirSync(`./data/${year}`, { recursive: true });
-      fs.writeFileSync(`./data/${year}/${month}.json`, eventsJSON);
+      const targetPath = `./data/${year}/${month}.json`;
+      const prevEvents = fs.existsSync(targetPath)
+        ? JSON.parse(fs.readFileSync(targetPath, "utf8"))
+        : [];
+      fs.writeFileSync(
+        `./data/${year}/${month}.json`,
+        JSON.stringify([...prevEvents, events])
+      );
+      return targetPath;
     });
+    return { year, months };
   });
+
+  console.log("Saved files: ", files);
 
   // Save current timestamp to file
   const now = new Date();
   fs.writeFileSync(lastFetchFilePath, now.toString());
+
+  // Create index file for easy include
+  const dataFolder = "./data";
+  const indexFilePath = `${dataFolder}/index.js`;
+  if (fs.existsSync(indexFilePath)) {
+    fs.rmSync(indexFilePath);
+  }
+  const dataFiles = fs.readdirSync(dataFolder);
+  const imports = dataFiles
+    .filter((item) => fs.statSync(`${dataFolder}/${item}`).isDirectory())
+    .reduce(
+      (result, item, index) => {
+        const monthFiles = fs.readdirSync(`./data/${item}`);
+        return {
+          res:
+            result.res +
+            monthFiles.reduce((mResult, mItem, mIndex) => {
+              return (
+                mResult +
+                `import events${(index + 1) * mIndex
+                } from "${dataFolder}/${item}/${mItem}";\n`
+              );
+            }, ""),
+          count: result.count + monthFiles.length,
+        };
+      },
+      { res: "", count: 0 }
+    );
+  const arrayContent = Array.from(Array(imports.count).keys()).map(
+    (index) => `...events${index + 1}`
+  );
+  const content = `${imports.res}\nconst data = [\n${arrayContent.join(
+    ",\n"
+  )}\n];\nexport default data;\n`;
+  fs.writeFileSync(indexFilePath, content);
 })();
