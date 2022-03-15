@@ -42,8 +42,10 @@ const lastFetchTime = new Date(
   );
   const eventsToJSON = events.docs.reduce((result: any, doc) => {
     const event = doc.data();
+    event.id = doc.id;
     event.startTime = event.startTime.toDate();
     event.endTime = event.endTime ? event.endTime.toDate() : null;
+    event.lastModified = event.lastModified.toDate();
 
     const year = event.startTime.getFullYear();
     const monthNbr = event.startTime.getMonth() + 1;
@@ -70,7 +72,7 @@ const lastFetchTime = new Date(
         : [];
       fs.writeFileSync(
         `./data/${year}/${month}.json`,
-        JSON.stringify([...prevEvents, events])
+        JSON.stringify([...prevEvents, ...events])
       );
       return targetPath;
     });
@@ -102,7 +104,7 @@ const lastFetchTime = new Date(
               return (
                 mResult +
                 `import events${(index + 1) * mIndex
-                } from "${dataFolder}/${item}/${mItem}";\n`
+                } from "./${item}/${mItem}";\n`
               );
             }, ""),
           count: result.count + monthFiles.length,
@@ -111,7 +113,7 @@ const lastFetchTime = new Date(
       { res: "", count: 0 }
     );
   const arrayContent = Array.from(Array(imports.count).keys()).map(
-    (index) => `...events${index + 1}`
+    (index) => `...events${index}`
   );
   const content = `${imports.res}\nconst data = [\n${arrayContent.join(
     ",\n"
