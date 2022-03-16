@@ -1,7 +1,7 @@
-name: tag-release
+name: fetch-data
 on:
   schedule:
-    - cron: "0 1 * * 1-5" # run at 1 AM UTC on weekdays
+    - cron: "0 1 * * *" # run at 1 AM UTC
   workflow_dispatch:
   repository_dispatch:
   push:
@@ -18,7 +18,7 @@ jobs:
       - name: install deps
         run: yarn install
       - name: prep creds
-        run: echo $FB_CREDS > ./tools/creds.json
+        run: echo $FB_CREDS > ./tools/firebase/creds.json
         env:
           FB_CREDS: ${{ secrets.FIREBASE_CREDENTIALS }}
       - name: update data
@@ -27,5 +27,5 @@ jobs:
       - name: commit changes
         run: |
           git add .
-          git commit "Add updates from db."
+          git commit -a -m "Add updates from db."
           git push origin main
