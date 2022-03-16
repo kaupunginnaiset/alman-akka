@@ -23,9 +23,13 @@ jobs:
           FB_CREDS: ${{ secrets.FIREBASE_CREDENTIALS }}
       - name: update data
         run: yarn tools:db:fetch ./creds.json
+      - name: remove creds
+        run: rm ./tools/firebase/creds.json
       # TODO: run tests and push only if they succeed
       - name: commit changes
         run: |
+          git config --global user.name fetch-bot
+          git config --global user.email fetch-bot
           git add .
           git commit -a -m "Add updates from db."
           git push origin main
