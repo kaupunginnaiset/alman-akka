@@ -4,7 +4,6 @@ on:
     - cron: "0 1 * * *" # run at 1 AM UTC
   workflow_dispatch:
   repository_dispatch:
-  push:
 
 jobs:
   fetch-latest:
@@ -13,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          ref: add-read-script
+          ref: main
       - uses: actions/setup-node@v2
         with:
           node-version: '16.x'
@@ -34,4 +33,4 @@ jobs:
           git config --global user.email fetch-bot
           git add .
           git commit -a -m "Add updates from db."
-          git push origin add-read-script
+          git push origin main
