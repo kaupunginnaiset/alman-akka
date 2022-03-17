@@ -103,7 +103,8 @@ const lastFetchTime = new Date(
             monthFiles.reduce((mResult, mItem, mIndex) => {
               return (
                 mResult +
-                `import events${(index + 1) * mIndex
+                `import events${
+                  (index + 1) * mIndex
                 } from "./${item}/${mItem}";\n`
               );
             }, ""),
