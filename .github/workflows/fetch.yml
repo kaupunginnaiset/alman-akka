@@ -1,0 +1,36 @@
+name: fetch-data
+on:
+  schedule:
+    - cron: "0 1 * * *" # run at 1 AM UTC
+  workflow_dispatch:
+  repository_dispatch:
+
+jobs:
+  fetch-latest:
+    runs-on: ubuntu-latest
+    name: Fetch latest events from db
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: main
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16.x'
+      - name: install deps
+        run: yarn install
+      - name: prep creds
+        run: echo $FB_CREDS > ./tools/firebase/creds.json
+        env:
+          FB_CREDS: ${{ secrets.FIREBASE_CREDENTIALS }}
+      - name: update data
+        run: yarn tools:db:fetch ./creds.json
+      - name: remove creds
+        run: rm ./tools/firebase/creds.json
+      # TODO: run tests and push only if they succeed
+      - name: commit changes
+        run: |
+          git config --global user.name fetch-bot
+          git config --global user.email fetch-bot
+          git add .
+          git commit -a -m "Add updates from db."
+          git push origin main
