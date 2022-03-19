@@ -33,10 +33,6 @@ a:focus {
   color: #000;
 }
 
-a::after {
-  content: "";
-}
-
 /** Icon class to style icons **/
 
 .icon {
