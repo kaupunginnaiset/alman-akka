@@ -1,3 +1,39 @@
+.header a,
+.header a:visited {
+  text-decoration: none;
+}
+
+.header > a::after {
+  content: "";
+  margin-top: -0.18rem;
+  display: block;
+  height: 0.15rem;
+  width: 100%;
+  background: rgb(229 0 0);
+  background: linear-gradient(
+    90deg,
+    rgb(229 0 0 / 100%) 17%,
+    rgb(255 141 0 / 100%) 34%,
+    rgb(255 238 0 / 100%) 51%,
+    rgb(2 129 33 / 100%) 67%,
+    rgb(0 76 255 / 100%) 84%,
+    rgb(119 0 136 / 100%) 100%
+  );
+}
+
+.header a:hover::after,
+.header a:focus::after {
+  background: rgb(255 255 255);
+  background: linear-gradient(
+    90deg,
+    rgb(255 255 255 / 100%) 20%,
+    rgb(255 175 199 / 100%) 40%,
+    rgb(115 215 238 / 100%) 60%,
+    rgb(97 57 21 / 100%) 80%,
+    rgb(0 0 0 / 100%) 100%
+  );
+}
+
 .header {
   padding: 1rem;
   display: flex;

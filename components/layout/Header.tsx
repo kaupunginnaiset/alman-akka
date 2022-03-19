@@ -25,7 +25,7 @@ export const Header = () => {
                 </a>
               </Link>
             </li>
-            <li className={styles.navitem}>
+            <li>
               <Link href="/" passHref>
                 <a className={styles.navitem}>
                   <UserIcon />
