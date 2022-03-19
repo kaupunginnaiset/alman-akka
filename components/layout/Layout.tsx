@@ -9,7 +9,9 @@ export const Layout = ({ children }: LayoutProps) => {
   return (
     <>
       <Header />
-      <main className={styles.main}>{children}</main>
+      <main className={styles.main} id="main">
+        {children}
+      </main>
     </>
   );
 };
