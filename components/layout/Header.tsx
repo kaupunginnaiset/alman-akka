@@ -21,7 +21,7 @@ export const Header = () => {
               <Link href={"/"} passHref>
                 <a className={styles.navitem}>
                   <SearchIcon />
-                  Hae
+                  <span className={styles["navitem-text"]}>Hae</span>
                 </a>
               </Link>
             </li>
@@ -29,7 +29,7 @@ export const Header = () => {
               <Link href="/" passHref>
                 <a className={styles.navitem}>
                   <UserIcon />
-                  Kirjaudu
+                  <span className={styles["navitem-text"]}>Kirjaudu</span>
                 </a>
               </Link>
             </li>

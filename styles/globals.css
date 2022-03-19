@@ -65,9 +65,9 @@ a:focus::after {
   );
 }
 
-/** Feather Icons' classes **/
+/** Icon class to style icons **/
 
-.feather {
+.icon {
   width: 36px;
   height: 36px;
   stroke: "currentColor";

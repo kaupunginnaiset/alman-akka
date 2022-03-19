@@ -11,18 +11,26 @@
   margin: 0;
   list-style: none;
   display: flex;
-  flex-direction: row;
+  flex-flow: row;
 }
 
 .navigation > li {
-  margin-left: 1.5rem;
+  margin-left: 2.5rem;
 }
 
 .navitem {
   display: flex;
-  flex-direction: column;
+  flex-flow: row wrap;
   align-items: center;
   font-size: 1rem;
+}
+
+.navitem::after {
+  height: 0;
+}
+
+.navitem-text {
+  text-decoration: underline;
 }
 
 .main {
@@ -61,4 +69,10 @@
   color: #fff;
   display: flex;
   flex-direction: column;
+}
+
+@media screen and (max-width: 600px) {
+  .navigation {
+    flex-direction: column;
+  }
 }
