@@ -1,7 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   basePath: "",
-  reactStrictMode: true
+  reactStrictMode: true,
+  images: {
+    domains: ["picsum.photos"]
+  }
 };
 
 module.exports = nextConfig;
