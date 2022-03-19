@@ -1,5 +1,6 @@
 :root {
   --c-pride-blue: #001a98;
+  --c-pride-orange: #ff8d00;
 }
 
 html,
@@ -13,6 +14,13 @@ body {
 
 * {
   box-sizing: border-box;
+}
+
+*:focus-visible {
+  outline: 1px solid transparent;
+  outline-offset: 4px;
+  box-shadow: 0 0 0 0.15rem var(--c-pride-orange);
+  border-radius: 0.1rem;
 }
 
 a,
