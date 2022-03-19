@@ -1,6 +1,19 @@
 :root {
-  --c-pride-blue: #001a98;
+  --c-pride-red: #e50000;
   --c-pride-orange: #ff8d00;
+  --c-pride-yellow: #fe0;
+  --c-pride-green: #028121;
+  --c-pride-blue: #001a98;
+  --c-pride-purple: #760088;
+  --c-pride-white: #fff;
+  --c-pride-light-pink: #ffafc7;
+  --c-pride-light-blue: #73d7ee;
+  --c-pride-brown: #613915;
+  --c-pride-black: #000;
+  --c-pride-gradient-rainbow: var(--c-pride-red), var(--c-pride-orange), var(--c-pride-yellow), var(--c-pride-green),
+    var(--c-pride-blue), var(--c-pride-purple);
+  --c-pride-gradient-progress: var(--c-pride-white), var(--c-pride-light-pink), var(--c-pride-light-blue),
+    var(--c-pride-brown), var(--c-pride-black);
 }
 
 html,
@@ -30,7 +43,7 @@ a:visited {
 
 a:hover,
 a:focus {
-  color: #000;
+  color: var(--c-pride-black);
 }
 
 /** Icon class to style icons **/
