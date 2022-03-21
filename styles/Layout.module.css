@@ -1,0 +1,100 @@
+.header a,
+.header a:visited {
+  text-decoration: none;
+}
+
+.header > a::after {
+  content: "";
+  margin-top: -0.18rem;
+  display: block;
+  height: 0.15rem;
+  width: 100%;
+  background: var(--c-pride-orange);
+  background: linear-gradient(90deg, var(--c-pride-gradient-rainbow));
+}
+
+.header a:hover::after,
+.header a:focus::after {
+  background: var(--c-pride-white);
+  background: linear-gradient(90deg, var(--c-pride-gradient-progress));
+}
+
+.header {
+  padding: 1rem;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.navigation {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  flex-flow: row;
+}
+
+.navigation > li {
+  margin-left: 2.5rem;
+}
+
+.navitem {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  font-size: 1rem;
+}
+
+.navitem::after {
+  height: 0;
+}
+
+.navitem-text {
+  text-decoration: underline;
+  margin-left: 0.25rem;
+}
+
+.main {
+  min-height: 100vh;
+  padding: 4rem 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.skiplink {
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.skiplink::after {
+  height: 0;
+  background-color: transparent;
+}
+
+.skiplink:focus {
+  position: relative;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: auto;
+  text-align: center;
+  padding: 0.5rem;
+  background-color: var(--c-pride-black);
+  color: var(--c-pride-white);
+  display: flex;
+  flex-direction: column;
+}
+
+@media screen and (max-width: 600px) {
+  .navigation {
+    flex-direction: column;
+  }
+}
