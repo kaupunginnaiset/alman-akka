@@ -1,6 +1,7 @@
 # alman-akka
 
 :rainbow-flag: event calendar
+[![codecov](https://codecov.io/gh/kaupunginnaiset/alman-akka/branch/main/graph/badge.svg?token=NRWPWLHM1M)](https://codecov.io/gh/kaupunginnaiset/alman-akka)
 
 ## Frontend
 
