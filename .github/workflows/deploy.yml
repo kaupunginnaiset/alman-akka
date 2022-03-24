@@ -1,0 +1,21 @@
+name: deploy
+on:
+  push:
+#    branches:
+#      - main
+
+jobs:
+  test-deployment:
+    runs-on: ubuntu-latest
+    name: Test build for deployment
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "16.x"
+      - name: install deps
+        run: yarn install
+      - name: export files
+        run: yarn export
+      - name: smoke test for export output
+        run: yarn test:export
