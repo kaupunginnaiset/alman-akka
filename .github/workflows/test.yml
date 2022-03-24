@@ -1,0 +1,31 @@
+on:
+  pull_request:
+    branches:
+      - main
+jobs:
+  unit-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "16"
+          cache: yarn
+      - run: yarn
+      - run: yarn test --coverage
+      - uses: codecov/codecov-action@v2
+
+  export-test:
+    runs-on: ubuntu-latest
+    name: Test exported build
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "16"
+      - name: install deps
+        run: yarn install
+      - name: export files
+        run: yarn export
+      - name: smoke test for export output
+        run: yarn test:export

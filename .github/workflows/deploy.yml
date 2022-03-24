@@ -7,15 +7,18 @@ on:
 jobs:
   test-deployment:
     runs-on: ubuntu-latest
-    name: Test build for deployment
+    name: Export and deploy app
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
-          node-version: "16.x"
+          node-version: "16"
       - name: install deps
         run: yarn install
       - name: export files
         run: yarn export
-      - name: smoke test for export output
-        run: yarn test:export
+      - name: deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./out
