@@ -4,7 +4,7 @@ on:
     branches:
       - main
 jobs:
-  test:
+  unit-test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -18,3 +18,22 @@ jobs:
       - run: yarn
       - run: yarn test --coverage
       - uses: codecov/codecov-action@v2
+
+  export-test:
+    runs-on: ubuntu-latest
+    name: Test exported build
+    steps:
+      - uses: actions/checkout@v2
+      - name: Read .nvmrc
+        run: echo "##[set-output name=NVMRC;]$(cat .nvmrc)"
+        id: nvm
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "${{ steps.nvm.outputs.NVMRC }}"
+          cache: yarn
+      - name: install deps
+        run: yarn install
+      - name: export files
+        run: yarn export
+      - name: smoke test for export output
+        run: yarn test:export
