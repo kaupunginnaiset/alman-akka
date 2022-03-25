@@ -33,6 +33,11 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
 
+### Tests
+
+You can run the unit tests using the command `yarn test`.  
+E2e-tests use Cypress and can be run with `yarn cypress`.
+
 ### Learn More About Next.js
 
 To learn more about Next.js, take a look at the following resources:
