@@ -38,12 +38,12 @@ const Time = ({ startDateTime, endDateTime, wholeDay }: TimeProps) => {
   const startTime = format(startTimeDate, timeFormatString);
   const endTime = endTimeDate ? format(endTimeDate, timeFormatString) : null;
 
-  const shouldShowEndDate = !!endTimeDate && !isSameDay(startTimeDate, endTimeDate);
+  const shouldShowEndDate = endTimeDate && !isSameDay(startTimeDate, endTimeDate);
 
   return (
     <div className={styles.times}>
       <time dateTime={format(startTimeDate, "yyyy-LL-dd")}>
-        {format(startTimeDate, shouldShowEndDate ? dayFormatStringWithoutYear : dayFormatString)}
+        {shouldShowEndDate ? format(startTimeDate, dayFormatStringWithoutYear) : format(startTimeDate, dayFormatString)}
       </time>
       {shouldShowEndDate ? (
         <>
