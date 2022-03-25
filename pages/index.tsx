@@ -8,7 +8,6 @@ const Home: NextPage = () => {
     <Layout>
       <Head>
         <title>Tapahtumat - Alman Akka</title>
-        <link rel="icon" href="/favicon.ico" />
       </Head>
       <Frontpage />
     </Layout>
