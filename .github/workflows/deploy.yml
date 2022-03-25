@@ -1,11 +1,11 @@
 name: deploy
 on:
   push:
-#    branches:
-#      - main
+    branches:
+      - main
 
 jobs:
-  test-deployment:
+  deploy:
     runs-on: ubuntu-latest
     name: Export and deploy app
     steps:
