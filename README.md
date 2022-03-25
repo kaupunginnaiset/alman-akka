@@ -1,6 +1,8 @@
 # alman-akka
 
-:rainbow-flag: event calendar
+🏳️‍🌈 event calendar
+
+[![CI](https://github.com/kaupunginnaiset/alman-akka/actions/workflows/ci.yml/badge.svg)](https://github.com/kaupunginnaiset/alman-akka/actions/workflows/ci.yml)
 [![codecov](https://codecov.io/gh/kaupunginnaiset/alman-akka/branch/main/graph/badge.svg?token=NRWPWLHM1M)](https://codecov.io/gh/kaupunginnaiset/alman-akka)
 
 ## Frontend
