@@ -3,7 +3,7 @@
 set -e
 
 docker run -itd -v \
-	$(PWD)/out:/usr/share/nginx/html \
+	$PWD/out:/usr/share/nginx/html \
 	-p 8123:80 \
 	--name deploy-test \
 	nginx:1.21.6-alpine
