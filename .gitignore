@@ -140,3 +140,5 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
+
+.build

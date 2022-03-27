@@ -6,9 +6,11 @@
   "scripts": {
     "build": "next build",
     "dev": "next dev",
+    "export": "yarn build && next export",
     "lint": "next lint && stylelint stylelint **/**.css",
     "start": "next start",
     "test": "jest",
+    "test:export": "./tools/deploy-test/test.sh",
     "tools:db:add": "ts-node -O '{\"module\": \"commonjs\"}' ./tools/firebase/add.ts",
     "tools:db:fetch": "ts-node -O '{\"module\": \"commonjs\"}' ./tools/firebase/fetch.ts"
   },

@@ -1,4 +1,3 @@
-import Image from "next/image";
 import format from "date-fns/format";
 import styles from "../../../styles/Home.module.css";
 import { isSameDay } from "date-fns";
@@ -78,7 +77,11 @@ export const EventCard = ({ event }: EventCardProps) => {
   return (
     <div className={styles["event-card"]}>
       <div className={styles["image-container"]}>
-        <Image src="https://picsum.photos/200" alt="" width={200} height={200} />
+        {/* TODO:
+            We skip next/image for now to be able to export fully static build.
+            If image optimization is needed, we can think of alternative deployment solutions.
+         */}
+        <img src="https://picsum.photos/200" alt="" width={200} height={200} />
       </div>
       <Time startDateTime={event.startTime} endDateTime={event.endTime} wholeDay={event.wholeDay} />
       <h2>{event.title}</h2>
