@@ -10,6 +10,7 @@
     "lint": "next lint && stylelint stylelint **/**.css",
     "start": "next start",
     "test": "jest",
+    "test:db": "firebase emulators:exec --project demo-test tools/firebase/test.sh",
     "test:export": "./tools/deploy-test/test.sh",
     "tools:db:add": "ts-node -O '{\"module\": \"commonjs\"}' ./tools/firebase/add.ts",
     "tools:db:fetch": "ts-node -O '{\"module\": \"commonjs\"}' ./tools/firebase/fetch.ts"
@@ -32,6 +33,7 @@
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-prettier": "^4.0.0",
     "firebase-admin": "^10.0.2",
+    "firebase-tools": "^10.5.0",
     "jest": "^27.5.1",
     "jest-axe": "^6.0.0",
     "prettier": "^2.5.1",
@@ -40,6 +42,7 @@
     "stylelint-config-prettier": "^9.0.3",
     "stylelint-config-standard": "^25.0.0",
     "stylelint-prettier": "^2.0.0",
+    "ts-jest": "^27.1.4",
     "ts-node": "^10.7.0",
     "typescript": "4.6.2"
   }
