@@ -18,7 +18,7 @@
   display: grid;
   align-items: start;
   row-gap: 0.25rem;
-  column-gap: 0.5rem;
+  column-gap: 1rem;
   justify-content: start;
   grid-template-areas:
     "img time"
@@ -41,7 +41,6 @@
 
 .image-container {
   grid-area: img;
-  max-width: 10rem;
   min-width: 8rem;
 }
 
