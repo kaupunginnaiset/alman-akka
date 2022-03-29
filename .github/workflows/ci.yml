@@ -10,7 +10,10 @@ jobs:
       - uses: actions/checkout@v2
       - uses: ./.github/actions/setup
       - run: yarn test --coverage
+      - run: yarn test:db
       - uses: codecov/codecov-action@v2
+        with:
+          files: ./coverage/lcov.info,./tools/firebase/coverage/lcov.info
 
   export-test:
     runs-on: ubuntu-latest
