@@ -43,6 +43,7 @@ describe("db", () => {
   it("fetches only changed events", async () => {
     const tsBefore = fs.readFileSync(tsFilePath, "utf8");
     const fileContentBefore = fs.readFileSync(`${dataFolderPath}/${eventsFile}`, "utf8");
+    await new Promise(r => setTimeout(r, 1000));
 
     await fetchEventsToFile(tsFilePath, dataFolderPath);
 
