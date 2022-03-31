@@ -10,8 +10,8 @@ describe("db", () => {
 
   beforeAll(() => {
     admin.initializeApp({ projectId: "demo-test" });
-    fs.rmSync(tsFilePath);
-    fs.rmSync(dataFolderPath, { recursive: true });
+    fs.rmSync(tsFilePath, { force: true });
+    fs.rmSync(dataFolderPath, { recursive: true, force: true });
   });
   it("adds events", async () => {
     const count = await addEventsFromFile(testFile);
