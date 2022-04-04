@@ -17,10 +17,14 @@ jobs:
             ${{ runner.os }}-firebase-emulators-
       - uses: ./.github/actions/setup
       - run: yarn test --coverage
+      - uses: codecov/codecov-action@v2
+        with:
+          flags: ui-unittests
       - run: yarn test:db
       - uses: codecov/codecov-action@v2
         with:
-          files: ./coverage/lcov.info,./tools/firebase/coverage/lcov.info
+          flags: db-unittests
+          directory: ./tools/firebase
 
   export-test:
     runs-on: ubuntu-latest
