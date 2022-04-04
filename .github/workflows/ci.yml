@@ -8,9 +8,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Cache firebase emulators
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/firebase/emulators
+          key: ${{ runner.os }}-firebase-emulators-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-firebase-emulators-
       - uses: ./.github/actions/setup
       - run: yarn test --coverage
       - uses: codecov/codecov-action@v2
+        with:
+          flags: ui-unittests
+      - run: yarn test:db
+      - uses: codecov/codecov-action@v2
+        with:
+          flags: db-unittests
+          directory: ./tools/firebase
 
   export-test:
     runs-on: ubuntu-latest

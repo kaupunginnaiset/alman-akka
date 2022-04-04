@@ -142,3 +142,4 @@ yarn-error.log*
 *.tsbuildinfo
 
 .build
+.config
