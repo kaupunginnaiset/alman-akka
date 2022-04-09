@@ -4,7 +4,7 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import { useRouter } from "next/router";
 
-import { initFirebase } from "./firebase-utils";
+import { initFirebase } from "../../utils/firebase-utils";
 
 const uiConfig = {
   signInSuccessUrl: "/my-events",

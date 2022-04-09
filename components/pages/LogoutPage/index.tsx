@@ -3,7 +3,7 @@ import { signOut } from "firebase/auth";
 
 import { useRouter } from "next/router";
 
-import { initFirebase } from "../LoginPage/firebase-utils";
+import { initFirebase } from "../../utils/firebase-utils";
 
 export const LogoutPage = () => {
   const { user } = initFirebase(useState, useEffect);

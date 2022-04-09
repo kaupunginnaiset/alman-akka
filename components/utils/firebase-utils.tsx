@@ -41,6 +41,6 @@ export const initFirebase = (
       }
     }
     return () => unsubscribe && unsubscribe();
-  }, [initialized, setInitialized, user, setUser]);
-  return { initialized, user, loading: !user, loggedIn: user && user.currentUser };
+  }, [initialized, setInitialized, user, setUser, unsubscribe, setUnsubscribe]);
+  return { user, loading: !user, loggedIn: user && user.currentUser };
 };

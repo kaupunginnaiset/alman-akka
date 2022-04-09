@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { initFirebase } from "../LoginPage/firebase-utils";
+import { initFirebase } from "../../utils/firebase-utils";
 import { useRouter } from "next/router";
 
 export const MyEventsPage = () => {
