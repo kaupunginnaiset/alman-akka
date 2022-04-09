@@ -4,12 +4,12 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 
 const firebaseConfig = {
-  apiKey: "demo-test",
-  authDomain: "demo-test.firebaseapp.com",
-  projectId: "demo-test",
-  storageBucket: "demo-test.appspot.com",
-  messagingSenderId: "demo-test",
-  appId: "demo-test"
+  apiKey: process.env.NEXT_PUBLIC_FB_API_KEY || "demo-test",
+  authDomain: process.env.NEXT_PUBLIC_FB_AUTH_DOMAIN || "demo-test.firebaseapp.com",
+  projectId: process.env.NEXT_PUBLIC_FB_PROJECT_ID || "demo-test",
+  storageBucket: process.env.NEXT_PUBLIC_FB_STORAGE_BUCKET || "demo-test.appspot.com",
+  messagingSenderId: process.env.NEXT_PUBLIC_FB_MESSAGING_SENDER_ID || "demo-test",
+  appId: process.env.NEXT_PUBLIC_FB_APP_ID || "demo-test"
 };
 
 export const initFirebase = (
