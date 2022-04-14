@@ -1,10 +1,11 @@
 import fs from "fs";
 import * as admin from "firebase-admin";
-import { EventFromJSON, addEventsFromFile, fetchEventsToFile } from "./db";
+import { addEventsFromFile, fetchEventsToFile } from "./db";
+import { EventFromJSON } from "../../data";
 
 describe("db", () => {
   const eventsFile = "2021/06.json";
-  const testFile = `./data/${eventsFile}`;
+  const testFile = `./data/development/${eventsFile}`;
   const tsFilePath = ".build/test-last-fetch.txt";
   const dataFolderPath = ".build/test-data";
 
@@ -19,7 +20,7 @@ describe("db", () => {
   });
   it("does not add events with invalid file", async () => {
     try {
-      await addEventsFromFile("./data/2021/05.json");
+      await addEventsFromFile("./data/development/2021/05.json");
     } catch (e: any) {
       expect(e.code).toEqual("ENOENT");
     }

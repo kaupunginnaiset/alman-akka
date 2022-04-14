@@ -17,6 +17,7 @@ if (process.argv.length < 3) {
   fb.initializeApp({
     credential: fb.credential.cert(serviceAccount)
   });
-  const lastFetchFilePath = "./data/last-fetch.txt";
-  await fetchEventsToFile(lastFetchFilePath, "./data");
+  const folderName = `./data/${process.env.NODE_ENV || "development"}`;
+  const lastFetchFilePath = `${folderName}/last-fetch.txt`;
+  await fetchEventsToFile(lastFetchFilePath, folderName);
 })();
