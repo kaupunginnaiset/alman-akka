@@ -15,7 +15,7 @@ jobs:
           ref: main
       - uses: ./.github/actions/setup
       - name: prep creds
-        run: echo $FB_CREDS > ./tools/firebase/creds.json
+        run: echo $FB_CREDS > ./firebase/creds.json
         env:
           FB_CREDS: ${{ secrets.FIREBASE_CREDENTIALS }}
       - name: update data
@@ -23,7 +23,7 @@ jobs:
         env:
           NODE_ENV: "production"
       - name: remove creds
-        run: rm ./tools/firebase/creds.json
+        run: rm ./firebase/creds.json
       # TODO: run tests and push only if they succeed
       - name: commit changes
         run: |

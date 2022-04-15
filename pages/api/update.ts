@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import * as admin from "firebase-admin";
-import { fetchEventsToFile } from "../../tools/firebase/db";
+import { fetchEventsToFile } from "../../firebase/firestore/db";
 
 // NOTE: this is for local development purposes only!
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {

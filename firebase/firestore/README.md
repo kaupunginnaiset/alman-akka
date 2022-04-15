@@ -56,4 +56,4 @@ yarn tools:db:add -- creds.json events.json
 ```
 
 First parameter `creds.json` is the necessary admin credential file downloaded from FB console. 
-The file path should be relative to the folder `./tools/firebase`. `events.json` contains a list of the events to be added.
+The file path should be relative to the folder `./firebase`. `events.json` contains a list of the events to be added.
