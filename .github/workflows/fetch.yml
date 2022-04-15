@@ -20,6 +20,8 @@ jobs:
           FB_CREDS: ${{ secrets.FIREBASE_CREDENTIALS }}
       - name: update data
         run: yarn tools:db:fetch ./creds.json
+        env:
+          NODE_ENV: "production"
       - name: remove creds
         run: rm ./tools/firebase/creds.json
       # TODO: run tests and push only if they succeed

@@ -51,7 +51,7 @@ export const fetchEventsToFile = async (lastFetchFilePath: string, dataFolderPat
     const monthNbr = event.startTime.getMonth() + 1;
     const month = monthNbr < 10 ? `0${monthNbr}` : monthNbr;
     const prevYearData = result[year] || {};
-    const prevMonthData = prevYearData[month] || {};
+    const prevMonthData = prevYearData[month] || [];
     return {
       ...result,
       [year]: {
@@ -95,7 +95,7 @@ export const fetchEventsToFile = async (lastFetchFilePath: string, dataFolderPat
           res:
             result.res +
             monthFiles.reduce((mResult, mItem, mIndex) => {
-              return mResult + `import events${(index + 1) * mIndex} from "./${item}/${mItem}";\n`;
+              return mResult + `import events${result.count + mIndex} from "./${item}/${mItem}";\n`;
             }, ""),
           count: result.count + monthFiles.length
         };

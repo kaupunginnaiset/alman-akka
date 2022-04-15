@@ -15,7 +15,7 @@
     "cypress": "cypress open",
     "tools:db:add": "ts-node -O '{\"module\": \"commonjs\"}' ./tools/firebase/add.ts",
     "tools:db:fetch": "ts-node -O '{\"module\": \"commonjs\"}' ./tools/firebase/fetch.ts",
-    "tools:emulator": "firebase emulators:start --project demo-test"
+    "tools:emulator": "cd tools && firebase emulators:start --project demo-test"
   },
   "dependencies": {
     "date-fns": "^2.28.0",

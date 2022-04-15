@@ -11,6 +11,7 @@ interface Event {
   startTime: string;
   endTime?: string | null;
   wholeDay?: boolean;
+  id: string;
 }
 
 interface EventCardProps {
@@ -88,7 +89,7 @@ export const EventCard = ({ event }: EventCardProps) => {
       <address>{event.location}</address>
       <div className={styles.categories}>
         {event.category?.map(category => (
-          <Category key={`${category}-${event.startTime}`} category={category} />
+          <Category key={`${category}-${event.id}`} category={category} />
         ))}
       </div>
     </div>
