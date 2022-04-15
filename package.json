@@ -5,17 +5,18 @@
   "license": "Apache-2.0",
   "scripts": {
     "build": "next build",
+    "build:functions": "cd firebase/functions && yarn && yarn build",
     "dev": "next dev",
     "export": "yarn build && next export",
     "lint": "next lint && stylelint stylelint **/**.css",
     "start": "next start",
     "test": "jest",
-    "test:db": "firebase emulators:exec --project demo-test firebase/firestore/test.sh",
+    "test:db": "cd firebase && firebase emulators:exec --only firestore --project demo-test ./firestore/test.sh",
     "test:export": "./tools/deploy-test/test.sh",
     "cypress": "cypress open",
     "tools:db:add": "ts-node -O '{\"module\": \"commonjs\"}' ./firebase/firestore/add.ts",
     "tools:db:fetch": "ts-node -O '{\"module\": \"commonjs\"}' ./firebase/firestore/fetch.ts",
-    "tools:emulator": "cd firebase && firebase emulators:start --project demo-test"
+    "tools:emulator": "yarn build:functions && cd firebase && firebase emulators:start --project demo-test"
   },
   "dependencies": {
     "date-fns": "^2.28.0",
