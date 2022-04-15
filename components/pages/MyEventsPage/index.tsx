@@ -1,16 +1,19 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, query, where, DocumentData, QueryDocumentSnapshot, getDocs } from "firebase/firestore";
 
-import { EventFromJSON } from "../../../data";
 import { initFirebase } from "../../utils/firebase-utils";
-import { start } from "repl";
 
 export const MyEventsPage = () => {
   const { loading, loggedIn, db, user } = initFirebase(useState, useEffect);
   const router = useRouter();
 
+  const [eventAdded, setEventAdded] = useState(false);
+  const [events, setEvents] = useState<QueryDocumentSnapshot<DocumentData>[] | null>(null);
+
   const addEvent = async () => {
+    setEventAdded(true);
+
     const currentDate = new Date();
     const startTime = new Date(currentDate);
     startTime.setDate(currentDate.getDate() + 1);
@@ -39,6 +42,13 @@ export const MyEventsPage = () => {
     if (!loading && !loggedIn) {
       router.push("/login");
     }
+    if (loggedIn && !events && db) {
+      (async () => {
+        const q = query(collection(db, "events"), where("addedBy", "==", user.currentUser.uid));
+        const docs = await getDocs(q);
+        setEvents(docs.docs);
+      })();
+    }
   });
 
   return loading || !loggedIn ? (
@@ -46,7 +56,12 @@ export const MyEventsPage = () => {
   ) : (
     <>
       <h1>Omat tapahtumat</h1>
-      <button onClick={addEvent}>Lisää tapahtuma</button>
+      {eventAdded ? (
+        <p>Tapahtumasi on lähetetty julkaisujonoon!</p>
+      ) : (
+        <button onClick={addEvent}>Lisää tapahtuma</button>
+      )}
+      {events && events.map((item: QueryDocumentSnapshot<DocumentData>) => <p key={item.id}>{item.data().title}</p>)}
     </>
   );
 };
