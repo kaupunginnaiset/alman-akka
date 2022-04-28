@@ -1,7 +1,7 @@
 name: fetch-data
 on:
-  #  schedule:
-  #    - cron: "0 1 * * *" # run at 1 AM UTC
+  # schedule:
+  #   - cron: "0 1 * * *" # run at 1 AM UTC
   workflow_dispatch:
   repository_dispatch:
 
@@ -24,6 +24,10 @@ jobs:
           NODE_ENV: "production"
       - name: remove creds
         run: rm ./firebase/creds.json
+      - name: duplicate data for dev
+        run: |
+          rm -rf ./data/development
+          cp -R ./data/production ./data/development
       # TODO: run tests and push only if they succeed
       - name: commit changes
         run: |
