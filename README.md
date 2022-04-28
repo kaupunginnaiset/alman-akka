@@ -17,7 +17,13 @@ The frontend of this app uses NextJS and Node 16 together with Yarn 1.x as a pac
 
 ### Getting Started
 
-First, run the development server:
+First, start the firebase emulator:
+
+```bash
+yarn tools:emulator
+```
+
+Then, open another terminal and run the development server:
 
 ```bash
 yarn dev

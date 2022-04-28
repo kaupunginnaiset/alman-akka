@@ -1,8 +1,18 @@
 import { render, screen } from "@testing-library/react";
-import Home from "../pages/index";
 import { axe } from "jest-axe";
 
+import Home from "../pages/index";
+
 describe("Home", () => {
+  const useRouter = jest.spyOn(require("next/router"), "useRouter");
+
+  beforeAll(() => {
+    useRouter.mockImplementation(() => ({
+      pathname: "/",
+      prefetch: () => new Promise(resolve => resolve)
+    }));
+  });
+
   it("renders a heading", () => {
     render(<Home />);
     const heading = screen.getByRole("heading", {
