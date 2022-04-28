@@ -31,11 +31,19 @@ yarn dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+The pages auto-update as you edit the files.
+
+If adding events during development, you may want to ignore the development data files from git index:
+
+```bash
+git update-index --skip-worktree data/development/index.js
+git update-index --skip-worktree data/development/last-fetch.txt
+```
 
 ### Tests
 
-You can run the unit tests using the command `yarn test`.  
+You can run the unit tests using the command `yarn test`.
+You can run the unit tests for the db scripts using the command `yarn test:db`.  
 E2e-tests use Cypress and can be run with `yarn cypress`.
 
 ### Learn More About Next.js
