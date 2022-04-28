@@ -1,4 +1,4 @@
-const folder = process.env.NODE_ENV || "development";
+const folder = process.env.NODE_ENV === "production" ? "production" : "development";
 const data = require(`./${folder}/index.js`);
 
 export default data.default;
