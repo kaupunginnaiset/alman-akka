@@ -1,5 +1,6 @@
 name: fetch-data
 on:
+  push:
   schedule:
     - cron: "0 1 * * *" # run at 1 AM UTC
   workflow_dispatch:
@@ -12,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          ref: main
+          ref: add-events
       - uses: ./.github/actions/setup
       - name: prep creds
         run: echo $FB_CREDS > ./firebase/creds.json
@@ -35,4 +36,4 @@ jobs:
           git config --global user.email fetch-bot
           git add .
           git commit -a -m "Add updates from db."
-          git push origin main
+          git push origin add-events
