@@ -16,7 +16,7 @@ jobs:
           ref: add-events
       - uses: ./.github/actions/setup
       - name: prep creds
-        run: echo $FB_CREDS > ./firebase/creds.json
+        run: echo $FB_CREDS > ./firebase/firestore/creds.json
         env:
           FB_CREDS: ${{ secrets.FIREBASE_CREDENTIALS }}
       - name: update data
@@ -24,7 +24,7 @@ jobs:
         env:
           NODE_ENV: "production"
       - name: remove creds
-        run: rm ./firebase/creds.json
+        run: rm ./firebase/firestore/creds.json
       - name: duplicate data for dev
         run: |
           rm -rf ./data/development
