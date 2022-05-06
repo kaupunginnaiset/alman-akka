@@ -12,6 +12,7 @@
     "test": "jest",
     "test:db": "firebase emulators:exec --project demo-test tools/firebase/test.sh",
     "test:export": "./tools/deploy-test/test.sh",
+    "cypress": "cypress open",
     "tools:db:add": "ts-node -O '{\"module\": \"commonjs\"}' ./tools/firebase/add.ts",
     "tools:db:fetch": "ts-node -O '{\"module\": \"commonjs\"}' ./tools/firebase/fetch.ts",
     "tools:emulator": "firebase emulators:start --project demo-test"
@@ -30,6 +31,7 @@
     "@types/jest-axe": "^3.5.3",
     "@types/node": "17.0.21",
     "@types/react": "17.0.39",
+    "cypress": "^9.5.2",
     "eslint": "8.10.0",
     "eslint-config-next": "12.1.0",
     "eslint-config-prettier": "^8.5.0",

@@ -75,7 +75,7 @@ const Category = ({ category }: CategoryProps) => {
 
 export const EventCard = ({ event }: EventCardProps) => {
   return (
-    <div className={styles["event-card"]}>
+    <div className={styles["event-card"]} data-cy="event-card">
       <div className={styles["image-container"]}>
         {/* TODO:
             We skip next/image for now to be able to export fully static build.
