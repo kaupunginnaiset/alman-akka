@@ -1,7 +1,7 @@
 name: fetch-data
 on:
-  #  schedule:
-  #    - cron: "0 1 * * *" # run at 1 AM UTC
+  schedule:
+    - cron: "0 1 * * *" # run at 1 AM UTC
   workflow_dispatch:
   repository_dispatch:
 
@@ -15,13 +15,19 @@ jobs:
           ref: main
       - uses: ./.github/actions/setup
       - name: prep creds
-        run: echo $FB_CREDS > ./tools/firebase/creds.json
+        run: echo $FB_CREDS > ./firebase/firestore/creds.json
         env:
           FB_CREDS: ${{ secrets.FIREBASE_CREDENTIALS }}
       - name: update data
         run: yarn tools:db:fetch ./creds.json
+        env:
+          NODE_ENV: "production"
       - name: remove creds
-        run: rm ./tools/firebase/creds.json
+        run: rm ./firebase/firestore/creds.json
+      - name: duplicate data for dev
+        run: |
+          rm -rf ./data/development
+          cp -R ./data/production ./data/development
       # TODO: run tests and push only if they succeed
       - name: commit changes
         run: |

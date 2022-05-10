@@ -24,7 +24,7 @@ jobs:
       - uses: codecov/codecov-action@v2
         with:
           flags: db-unittests
-          directory: ./tools/firebase
+          directory: ./firebase
 
   e2e:
     runs-on: ubuntu-latest

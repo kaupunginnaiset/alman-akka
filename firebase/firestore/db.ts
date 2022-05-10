@@ -1,31 +1,7 @@
 import * as fs from "fs";
 import * as fb from "firebase-admin";
 
-interface BaseEvent {
-  externalId?: string;
-  category: [string];
-  title: string;
-  event?: string;
-  location: string;
-  address: string;
-  area?: string;
-  description: string;
-  wholeDay: boolean;
-  url: string;
-  addedBy: string;
-}
-
-export interface EventFromJSON extends BaseEvent {
-  startTime: string;
-  endTime?: string;
-  lastModified: string;
-}
-
-interface Event extends BaseEvent {
-  startTime: Date;
-  endTime?: Date;
-  lastModified: Date;
-}
+import { EventFromJSON } from "../../data";
 
 export const addEventsFromFile = async (filePath: string): Promise<number> => {
   const events = JSON.parse(fs.readFileSync(filePath, "utf8"));
@@ -75,7 +51,7 @@ export const fetchEventsToFile = async (lastFetchFilePath: string, dataFolderPat
     const monthNbr = event.startTime.getMonth() + 1;
     const month = monthNbr < 10 ? `0${monthNbr}` : monthNbr;
     const prevYearData = result[year] || {};
-    const prevMonthData = prevYearData[month] || {};
+    const prevMonthData = prevYearData[month] || [];
     return {
       ...result,
       [year]: {
@@ -114,12 +90,12 @@ export const fetchEventsToFile = async (lastFetchFilePath: string, dataFolderPat
     .filter(item => fs.statSync(`${dataFolderPath}/${item}`).isDirectory())
     .reduce(
       (result, item, index) => {
-        const monthFiles = fs.readdirSync(`./data/${item}`);
+        const monthFiles = fs.readdirSync(`${dataFolderPath}/${item}`);
         return {
           res:
             result.res +
             monthFiles.reduce((mResult, mItem, mIndex) => {
-              return mResult + `import events${(index + 1) * mIndex} from "./${item}/${mItem}";\n`;
+              return mResult + `import events${result.count + mIndex} from "./${item}/${mItem}";\n`;
             }, ""),
           count: result.count + monthFiles.length
         };

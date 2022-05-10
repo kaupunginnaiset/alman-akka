@@ -31,11 +31,19 @@ yarn dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+The pages auto-update as you edit the files.
+
+If adding events during development, you may want to ignore the development data files from git index:
+
+```bash
+git update-index --skip-worktree data/development/index.js
+git update-index --skip-worktree data/development/last-fetch.txt
+```
 
 ### Tests
 
-You can run the unit tests using the command `yarn test`.  
+You can run the unit tests using the command `yarn test`.
+You can run the unit tests for the db scripts using the command `yarn test:db`.  
 E2e-tests use Cypress and can be run with `yarn cypress`.
 
 ### Learn More About Next.js
@@ -47,8 +55,42 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-### Deploy on Vercel
+### Deployment
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The app is a static website deployed to GitHub pages.
+The front page uses data files that are automatically generated. The data is stored in Firebase Firestore database.
+Own events section initializes a Firebase connection and uses the Firestore database directly.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+#### Events update
+
+Events are updated through GitHub actions.
+
+```mermaid
+sequenceDiagram
+    autonumber
+    participant GHRepo
+    participant GHActions
+    participant Firestore
+
+    GHActions->>GHActions: Scheduled action/Workflow trigger
+    GHActions->>GHRepo: Read timestamp for last fetch
+    GHRepo-->>GHActions: last-fetch.txt
+    GHActions->>Firestore: Fetch events changed since last fetch
+    Firestore-->>GHActions: Events JSON
+    GHActions->>GHRepo: Read current events
+    GHRepo-->>GHActions: Events JSON
+    GHActions->>GHActions: Merge old and new events
+    GHActions->>GHRepo: Commit new data and timestamp
+    GHRepo-->>GHRepo: Deploy new app version
+```
+
+#### Setup
+
+When developing, you can use the Firebase emulator for testing the Firebase functionality, so you do not need an actual Firebase connection.
+However, if deploying the app with a new Firebase project, following steps are needed:
+
+* [Create new firebase project](https://cloud.google.com/firestore/docs/client/get-firebase)
+* [Enable Google authentication](https://firebase.google.com/docs/auth/web/google-signin#before_you_begin)
+* [Enable Facebook authentication](https://firebase.google.com/docs/auth/web/facebook-login#before_you_begin)
+* Setup Firestore
+* Deploy Cloud Functions

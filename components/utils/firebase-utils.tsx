@@ -2,6 +2,7 @@ import { EffectCallback, DependencyList } from "react";
 import { getAuth, connectAuthEmulator, onAuthStateChanged } from "firebase/auth";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
+import { getFirestore, connectFirestoreEmulator } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FB_API_KEY || "demo-test",
@@ -19,13 +20,17 @@ export const initFirebase = (
   const [initialized, setInitialized] = stateHook(false);
   const [user, setUser] = stateHook(null);
   const [unsubscribe, setUnsubscribe] = stateHook(null);
+  const [db, setDb] = stateHook(null);
   effectHook(() => {
     const initFb = async () => {
-      firebase.initializeApp(firebaseConfig);
+      const app = firebase.initializeApp(firebaseConfig);
       const auth = getAuth();
+      const db = getFirestore(app);
       if (firebaseConfig.projectId.startsWith("demo")) {
         connectAuthEmulator(auth, "http://localhost:9099");
+        connectFirestoreEmulator(db, "localhost", 8080);
       }
+      setDb(db);
       setUnsubscribe(
         onAuthStateChanged(auth, () => {
           setUser(getAuth());
@@ -41,6 +46,7 @@ export const initFirebase = (
       }
     }
     return () => unsubscribe && unsubscribe();
-  }, [initialized, setInitialized, user, setUser, unsubscribe, setUnsubscribe]);
-  return { user, loading: !user, loggedIn: user && user.currentUser };
+  }, [initialized, setInitialized, user, setUser, unsubscribe, setUnsubscribe, db, setDb]);
+
+  return { user, loading: !user, loggedIn: user && user.currentUser, db };
 };
