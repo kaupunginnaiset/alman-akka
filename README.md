@@ -58,3 +58,39 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 ### Deployment
 
 The app is a static website deployed to GitHub pages.
+The front page uses data files that are automatically generated. The data is stored in Firebase Firestore database.
+Own events section initializes a Firebase connection and uses the Firestore database directly.
+
+#### Events update
+
+Events are updated through GitHub actions.
+
+```mermaid
+sequenceDiagram
+    autonumber
+    participant GHRepo
+    participant GHActions
+    participant Firestore
+
+    GHActions->>GHActions: Scheduled action/Workflow trigger
+    GHActions->>GHRepo: Read timestamp for last fetch
+    GHRepo-->>GHActions: last-fetch.txt
+    GHActions->>Firestore: Fetch events changed since last fetch
+    Firestore-->>GHActions: Events JSON
+    GHActions->>GHRepo: Read current events
+    GHRepo-->>GHActions: Events JSON
+    GHActions->>GHActions: Merge old and new events
+    GHActions->>GHRepo: Commit new data and timestamp
+    GHRepo-->>GHRepo: Deploy new app version
+```
+
+#### Setup
+
+When developing, you can use the Firebase emulator for testing the Firebase functionality, so you do not need an actual Firebase connection.
+However, if deploying the app with a new Firebase project, following steps are needed:
+
+* [Create new firebase project](https://cloud.google.com/firestore/docs/client/get-firebase)
+* [Enable Google authentication](https://firebase.google.com/docs/auth/web/google-signin#before_you_begin)
+* [Enable Facebook authentication](https://firebase.google.com/docs/auth/web/facebook-login#before_you_begin)
+* Setup Firestore
+* Deploy Cloud Functions
